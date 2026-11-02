@@ -1,0 +1,101 @@
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.android)
+
+    id("com.google.devtools.ksp")
+    id("com.google.dagger.hilt.android")
+}
+
+android {
+    namespace = "kh.com.supheng.jetpack.compose.studentmanagement"
+    compileSdk {
+        version = release(37) {
+            minorApiLevel = 1
+        }
+    }
+
+    defaultConfig {
+        applicationId = "kh.com.supheng.jetpack.compose.studentmanagement"
+        minSdk = 29
+        targetSdk = 36
+        versionCode = 1
+        versionName = "1.0"
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            optimization {
+                enable = false
+            }
+        }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+    buildFeatures {
+        compose = true
+    }
+    kotlinOptions {
+        jvmTarget = "11"
+    }
+}
+
+dependencies {
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.runtime)
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.graphics)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    testImplementation(libs.junit)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.androidx.junit)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
+    debugImplementation(libs.androidx.compose.ui.tooling)
+
+    implementation("androidx.compose.foundation:foundation")
+
+    implementation("androidx.compose.material3:material3")
+    val roomVersion = "2.8.4"
+
+    implementation("androidx.room:room-runtime:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
+
+    ksp("androidx.room:room-compiler:$roomVersion")
+    // Hilt
+    implementation("com.google.dagger:hilt-android:2.60.1")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    ksp("com.google.dagger:hilt-compiler:2.60.1")
+    // Compose BOM
+    implementation(platform("androidx.compose:compose-bom:2025.05.01"))
+
+    // Compose UI
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation("androidx.compose.foundation:foundation")
+
+    // Material 3
+    implementation("androidx.compose.material3:material3")
+
+    // Compose Runtime
+    implementation("androidx.compose.runtime:runtime")
+
+    // Lifecycle
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.9.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.9.0")
+    // Debug
+    debugImplementation("androidx.compose.ui:ui-tooling")
+
+    implementation("androidx.compose.material:material-icons-extended")
+
+    implementation("androidx.navigation:navigation-compose:2.10.2")
+}

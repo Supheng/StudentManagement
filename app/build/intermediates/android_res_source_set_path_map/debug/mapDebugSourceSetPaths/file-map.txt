@@ -1,0 +1,8 @@
+kh.com.supheng.jetpack.compose.studentmanagement.app-pngs-0 D:\StudentManagement\app\build\generated\res\pngs\debug
+kh.com.supheng.jetpack.compose.studentmanagement.app-updated_navigation_xml-1 D:\StudentManagement\app\build\generated\updated_navigation_xml\debug
+kh.com.supheng.jetpack.compose.studentmanagement.app-packageDebugResources-2 D:\StudentManagement\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+kh.com.supheng.jetpack.compose.studentmanagement.app-packageDebugResources-3 D:\StudentManagement\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+kh.com.supheng.jetpack.compose.studentmanagement.app-debug-4 D:\StudentManagement\app\build\intermediates\merged_res\debug\mergeDebugResources
+kh.com.supheng.jetpack.compose.studentmanagement.app-debug-5 D:\StudentManagement\app\src\debug\res
+kh.com.supheng.jetpack.compose.studentmanagement.app-main-6 D:\StudentManagement\app\src\main\res
+gradleHome-0 C:\Users\Lenovo\.gradle

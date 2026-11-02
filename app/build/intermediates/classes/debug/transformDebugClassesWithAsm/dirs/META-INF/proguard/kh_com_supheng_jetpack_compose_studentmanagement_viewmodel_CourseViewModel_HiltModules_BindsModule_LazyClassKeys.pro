@@ -1,0 +1,1 @@
+-keep,allowobfuscation,allowshrinking class kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.CourseViewModel
