@@ -35,18 +35,25 @@ public class StudentDatabase_Impl : StudentDatabase() {
     CourseDao_Impl(this)
   }
 
+  private val _userDao: Lazy<UserDao> = lazy {
+    UserDao_Impl(this)
+  }
+
   protected override fun createOpenDelegate(): RoomOpenDelegate {
-    val _openDelegate: RoomOpenDelegate = object : RoomOpenDelegate(2, "453b2ac2e170885617c69ef9c85a3028", "e08bb99d3273923d5e87ef768c19edcc") {
+    val _openDelegate: RoomOpenDelegate = object : RoomOpenDelegate(3, "cbb7e44a31188022c794a21ca16e60d6", "c31486323dc916c471e4910d988e81fa") {
       public override fun createAllTables(connection: SQLiteConnection) {
         connection.execSQL("CREATE TABLE IF NOT EXISTS `students` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `email` TEXT NOT NULL, `phone` TEXT NOT NULL, `course` TEXT NOT NULL)")
         connection.execSQL("CREATE TABLE IF NOT EXISTS `courses` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `duration` TEXT NOT NULL)")
+        connection.execSQL("CREATE TABLE IF NOT EXISTS `users` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `email` TEXT NOT NULL, `passwordHash` TEXT NOT NULL, `salt` TEXT NOT NULL)")
+        connection.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS `index_users_email` ON `users` (`email`)")
         connection.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)")
-        connection.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '453b2ac2e170885617c69ef9c85a3028')")
+        connection.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cbb7e44a31188022c794a21ca16e60d6')")
       }
 
       public override fun dropAllTables(connection: SQLiteConnection) {
         connection.execSQL("DROP TABLE IF EXISTS `students`")
         connection.execSQL("DROP TABLE IF EXISTS `courses`")
+        connection.execSQL("DROP TABLE IF EXISTS `users`")
       }
 
       public override fun onCreate(connection: SQLiteConnection) {
@@ -101,6 +108,26 @@ public class StudentDatabase_Impl : StudentDatabase() {
               | Found:
               |""".trimMargin() + _existingCourses)
         }
+        val _columnsUsers: MutableMap<String, TableInfo.Column> = mutableMapOf()
+        _columnsUsers.put("id", TableInfo.Column("id", "INTEGER", true, 1, null, TableInfo.CREATED_FROM_ENTITY))
+        _columnsUsers.put("name", TableInfo.Column("name", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY))
+        _columnsUsers.put("email", TableInfo.Column("email", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY))
+        _columnsUsers.put("passwordHash", TableInfo.Column("passwordHash", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY))
+        _columnsUsers.put("salt", TableInfo.Column("salt", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY))
+        val _foreignKeysUsers: MutableSet<TableInfo.ForeignKey> = mutableSetOf()
+        val _indicesUsers: MutableSet<TableInfo.Index> = mutableSetOf()
+        _indicesUsers.add(TableInfo.Index("index_users_email", true, listOf("email"), listOf("ASC")))
+        val _infoUsers: TableInfo = TableInfo("users", _columnsUsers, _foreignKeysUsers, _indicesUsers)
+        val _existingUsers: TableInfo = read(connection, "users")
+        if (!_infoUsers.equals(_existingUsers)) {
+          return RoomOpenDelegate.ValidationResult(false, """
+              |users(kh.com.supheng.jetpack.compose.studentmanagement.data.local.UserEntity).
+              | Expected:
+              |""".trimMargin() + _infoUsers + """
+              |
+              | Found:
+              |""".trimMargin() + _existingUsers)
+        }
         return RoomOpenDelegate.ValidationResult(true, null)
       }
     }
@@ -110,17 +137,18 @@ public class StudentDatabase_Impl : StudentDatabase() {
   protected override fun createInvalidationTracker(): InvalidationTracker {
     val _shadowTablesMap: MutableMap<String, String> = mutableMapOf()
     val _viewTables: MutableMap<String, Set<String>> = mutableMapOf()
-    return InvalidationTracker(this, _shadowTablesMap, _viewTables, "students", "courses")
+    return InvalidationTracker(this, _shadowTablesMap, _viewTables, "students", "courses", "users")
   }
 
   public override fun clearAllTables() {
-    super.performClear(false, "students", "courses")
+    super.performClear(false, "students", "courses", "users")
   }
 
   protected override fun getRequiredTypeConverterClasses(): Map<KClass<*>, List<KClass<*>>> {
     val _typeConvertersMap: MutableMap<KClass<*>, List<KClass<*>>> = mutableMapOf()
     _typeConvertersMap.put(StudentDao::class, StudentDao_Impl.getRequiredConverters())
     _typeConvertersMap.put(CourseDao::class, CourseDao_Impl.getRequiredConverters())
+    _typeConvertersMap.put(UserDao::class, UserDao_Impl.getRequiredConverters())
     return _typeConvertersMap
   }
 
@@ -137,4 +165,6 @@ public class StudentDatabase_Impl : StudentDatabase() {
   public override fun studentDao(): StudentDao = _studentDao.value
 
   public override fun courseDao(): CourseDao = _courseDao.value
+
+  public override fun userDao(): UserDao = _userDao.value
 }

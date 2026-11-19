@@ -38,10 +38,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import kh.com.supheng.jetpack.compose.studentmanagement.data.Model.Student
+import kh.com.supheng.jetpack.compose.studentmanagement.R
+import kh.com.supheng.jetpack.compose.studentmanagement.data.model.Student
 import kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.StudentViewModel
 
 @Composable
@@ -80,7 +82,7 @@ fun StudentScreen(
                 shape = RoundedCornerShape(16.dp)
             ) {
                 Text(
-                    text = "+ Add Student",
+                    text = stringResource(R.string.add_student),
                     fontWeight = FontWeight.Bold
                 )
             }
@@ -98,7 +100,7 @@ fun StudentScreen(
 
             // Header
             Text(
-                text = "Student Management",
+                text = stringResource(R.string.student_count),
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onBackground
@@ -107,7 +109,7 @@ fun StudentScreen(
             Spacer(modifier = Modifier.height(6.dp))
 
             Text(
-                text = "Manage your students and their information.",
+                text = stringResource(R.string.student_management_description),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -129,7 +131,7 @@ fun StudentScreen(
                     modifier = Modifier.padding(22.dp)
                 ) {
                     Text(
-                        text = "TOTAL STUDENTS",
+                        text = stringResource(R.string.total_students_label),
                         style = MaterialTheme.typography.labelLarge,
                         color = MaterialTheme.colorScheme.onPrimary.copy(
                             alpha = 0.8f
@@ -147,7 +149,7 @@ fun StudentScreen(
                     )
 
                     Text(
-                        text = "Registered students",
+                        text = stringResource(R.string.registered_students),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onPrimary.copy(
                             alpha = 0.8f
@@ -166,12 +168,12 @@ fun StudentScreen(
                 },
                 modifier = Modifier.fillMaxWidth(),
                 placeholder = {
-                    Text("Search by name, email or course")
+                    Text(stringResource(R.string.search_students_hint))
                 },
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Default.Search,
-                        contentDescription = "Search"
+                        contentDescription = stringResource(R.string.search)
                     )
                 },
                 shape = RoundedCornerShape(16.dp),
@@ -187,13 +189,16 @@ fun StudentScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Student List",
+                    text = stringResource(R.string.student_list),
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold
                 )
 
                 Text(
-                    text = "${filteredStudents.size} students",
+                    text = stringResource(
+                        R.string.student_count,
+                        filteredStudents.size
+                    ),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -217,7 +222,7 @@ fun StudentScreen(
                 uiState.errorMessage != null -> {
                     Text(
                         text = uiState.errorMessage
-                            ?: "Something went wrong",
+                            ?: stringResource(R.string.something_went_wrong),
                         color = MaterialTheme.colorScheme.error,
                         modifier = Modifier.padding(16.dp)
                     )
@@ -298,11 +303,14 @@ fun StudentScreen(
                     studentToDelete = null
                 },
                 title = {
-                    Text("Delete Student?")
+                    Text(stringResource(R.string.delete_student_title))
                 },
                 text = {
                     Text(
-                        "Are you sure you want to delete ${studentToDelete?.name}?"
+                        stringResource(
+                            R.string.confirm_delete_student,
+                            studentToDelete?.name.orEmpty()
+                        )
                     )
                 },
                 confirmButton = {
@@ -315,7 +323,7 @@ fun StudentScreen(
                         }
                     ) {
                         Text(
-                            "Delete",
+                            stringResource(R.string.delete),
                             color = MaterialTheme.colorScheme.error
                         )
                     }
@@ -326,7 +334,7 @@ fun StudentScreen(
                             studentToDelete = null
                         }
                     ) {
-                        Text("Cancel")
+                        Text(stringResource(R.string.cancel))
                     }
                 }
             )
@@ -407,7 +415,7 @@ fun StudentCard(
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = "Email",
+                text = stringResource(R.string.email),
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -420,7 +428,7 @@ fun StudentCard(
             Spacer(modifier = Modifier.height(10.dp))
 
             Text(
-                text = "Phone",
+                text = stringResource(R.string.phone),
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -439,14 +447,14 @@ fun StudentCard(
                 TextButton(
                     onClick = onEdit
                 ) {
-                    Text("Edit")
+                    Text(stringResource(R.string.edit))
                 }
 
                 TextButton(
                     onClick = onDelete
                 ) {
                     Text(
-                        "Delete",
+                        stringResource(R.string.delete),
                         color = MaterialTheme.colorScheme.error
                     )
                 }
@@ -468,7 +476,11 @@ fun EmptyStudentState(
     ) {
 
         Text(
-            text = if (isSearching) "No matching students" else "No students yet",
+            text = if (isSearching) {
+                stringResource(R.string.no_matching_students)
+            } else {
+                stringResource(R.string.no_students_yet)
+            },
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold
         )
@@ -477,9 +489,9 @@ fun EmptyStudentState(
 
         Text(
             text = if (isSearching) {
-                "Try searching with a different keyword."
+                stringResource(R.string.try_different_keyword)
             } else {
-                "Add your first student to get started."
+                stringResource(R.string.add_first_student)
             },
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant

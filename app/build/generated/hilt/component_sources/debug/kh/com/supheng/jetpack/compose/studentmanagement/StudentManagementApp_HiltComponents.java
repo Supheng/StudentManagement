@@ -47,8 +47,12 @@ import dagger.hilt.migration.DisableInstallInCheck;
 import javax.annotation.processing.Generated;
 import javax.inject.Singleton;
 import kh.com.supheng.jetpack.compose.studentmanagement.di.AppModule;
+import kh.com.supheng.jetpack.compose.studentmanagement.di.DataStoreModule;
+import kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.AuthViewModel_HiltModules;
 import kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.CourseViewModel_HiltModules;
+import kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.SettingsViewModel_HiltModules;
 import kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.StudentViewModel_HiltModules;
+import kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.ThemeViewModel_HiltModules;
 
 @Generated("dagger.hilt.processor.internal.root.RootProcessor")
 public final class StudentManagementApp_HiltComponents {
@@ -129,6 +133,7 @@ public final class StudentManagementApp_HiltComponents {
       modules = {
           AppModule.class,
           ApplicationContextModule.class,
+          DataStoreModule.class,
           HiltWrapper_FragmentGetContextFix_FragmentGetContextFixModule.class,
           ActivityRetainedCBuilderModule.class,
           ServiceCBuilderModule.class
@@ -155,12 +160,15 @@ public final class StudentManagementApp_HiltComponents {
 
   @Subcomponent(
       modules = {
+          AuthViewModel_HiltModules.KeyModule.class,
           CourseViewModel_HiltModules.KeyModule.class,
           HiltWrapper_ActivityRetainedComponentManager_LifecycleModule.class,
           HiltWrapper_ActivitySavedStateHandleModule.class,
+          SettingsViewModel_HiltModules.KeyModule.class,
           ActivityCBuilderModule.class,
           ViewModelCBuilderModule.class,
-          StudentViewModel_HiltModules.KeyModule.class
+          StudentViewModel_HiltModules.KeyModule.class,
+          ThemeViewModel_HiltModules.KeyModule.class
       }
   )
   @ActivityRetainedScoped
@@ -196,9 +204,12 @@ public final class StudentManagementApp_HiltComponents {
 
   @Subcomponent(
       modules = {
+          AuthViewModel_HiltModules.BindsModule.class,
           CourseViewModel_HiltModules.BindsModule.class,
           HiltWrapper_HiltViewModelFactory_ViewModelModule.class,
-          StudentViewModel_HiltModules.BindsModule.class
+          SettingsViewModel_HiltModules.BindsModule.class,
+          StudentViewModel_HiltModules.BindsModule.class,
+          ThemeViewModel_HiltModules.BindsModule.class
       }
   )
   @ViewModelScoped

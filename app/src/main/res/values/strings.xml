@@ -1,3 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- App -->
     <string name="app_name">Student Management</string>
+
+    <!-- Navigation -->
+    <string name="dashboard">Dashboard</string>
+    <string name="students">Students</string>
+    <string name="courses">Courses</string>
+    <string name="settings">Settings</string>
+
+    <!-- Dashboard -->
+    <string name="welcome">Welcome back!</string>
+    <string name="overview">Overview</string>
+    <string name="logout">Logout</string>
+
+    <!-- Students -->
+    <string name="add_student">+ Add Student</string>
+    <string name="student_management_description">Manage your students and their information.</string>
+    <string name="total_students_label">TOTAL STUDENTS</string>
+    <string name="registered_students">Registered students</string>
+    <string name="search_students_hint">Search by name, email or course</string>
+    <string name="search">Search</string>
+    <string name="student_list">Student List</string>
+    <string name="student_count">%1$d students</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="delete_student_title">Delete Student?</string>
+    <string name="confirm_delete_student">Are you sure you want to delete %1$s?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone</string>
+    <string name="edit">Edit</string>
+    <string name="no_matching_students">No matching students</string>
+    <string name="no_students_yet">No students yet</string>
+    <string name="try_different_keyword">Try searching with a different keyword.</string>
+    <string name="add_first_student">Add your first student to get started.</string>
+
+    <!-- Courses -->
+    <string name="add_course">Add Course</string>
+    <string name="course_management">Course Management</string>
+    <string name="course_management_description">Manage courses and learning programs.</string>
+    <string name="total_courses_label">TOTAL COURSES</string>
+    <string name="available_learning_programs">Available learning programs</string>
+    <string name="search_courses_hint">Search courses...</string>
+    <string name="search_courses">Search courses</string>
+    <string name="course_list">Course List</string>
+    <string name="course_count">courses</string>
+    <string name="delete_course_title">Delete Course?</string>
+    <string name="confirm_delete_course">Are you sure you want to delete %1$s?</string>
+    <string name="duration">Duration</string>
+    <string name="description_label">DESCRIPTION</string>
+    <string name="no_matching_courses">No matching courses</string>
+    <string name="no_courses_yet">No courses yet</string>
+    <string name="add_first_course">Add your first course to get started.</string>
+
+    <!-- Settings -->
+    <string name="dark_mode">Dark Mode</string>
+    <string name="notifications">Notifications</string>
+    <string name="language">Language</string>
+    <string name="english">English</string>
+    <string name="khmer">Khmer</string>
+
+    <!-- Authentication -->
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+
 </resources>

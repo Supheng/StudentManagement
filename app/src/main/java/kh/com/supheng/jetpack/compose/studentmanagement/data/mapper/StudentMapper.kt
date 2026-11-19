@@ -1,7 +1,7 @@
 package kh.com.supheng.jetpack.compose.studentmanagement.data.mapper
 
 import kh.com.supheng.jetpack.compose.studentmanagement.data.local.StudentEntity
-import kh.com.supheng.jetpack.compose.studentmanagement.data.Model.Student
+import kh.com.supheng.jetpack.compose.studentmanagement.data.model.Student
 fun StudentEntity.toStudent(): Student {
     return Student(
         id = id,

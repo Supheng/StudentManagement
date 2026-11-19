@@ -98,4 +98,17 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended")
 
     implementation("androidx.navigation:navigation-compose:2.10.2")
+
+    // Unit Testing
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("io.mockk:mockk:1.13.14")
+
+// Coroutine Testing
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.11.0")
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+    // data Store
+    // DataStore Preferences
+    implementation("androidx.datastore:datastore-preferences:1.1.7")
+
+    implementation("androidx.appcompat:appcompat:1.7.1")
 }

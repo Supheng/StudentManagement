@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- App -->
+    <string name="app_name">ប្រព័ន្ធគ្រប់គ្រងនិស្សិត</string>
+
+    <!-- Navigation -->
+    <string name="dashboard">ផ្ទាំងគ្រប់គ្រង</string>
+    <string name="students">និស្សិត</string>
+    <string name="courses">វគ្គសិក្សា</string>
+    <string name="settings">ការកំណត់</string>
+
+    <!-- Dashboard -->
+    <string name="welcome">សូមស្វាគមន៍ការត្រឡប់មកវិញ!</string>
+    <string name="overview">ទិដ្ឋភាពទូទៅ</string>
+    <string name="logout">ចាកចេញ</string>
+
+    <!-- Students -->
+    <string name="add_student">+ បន្ថែមនិស្សិត</string>
+    <string name="student_management_description">គ្រប់គ្រងនិស្សិត និងព័ត៌មានរបស់ពួកគេ។</string>
+    <string name="total_students_label">ចំនួននិស្សិតសរុប</string>
+    <string name="registered_students">និស្សិតដែលបានចុះឈ្មោះ</string>
+    <string name="search_students_hint">ស្វែងរកតាមឈ្មោះ អ៊ីមែល ឬវគ្គសិក្សា</string>
+    <string name="search">ស្វែងរក</string>
+    <string name="student_list">បញ្ជីនិស្សិត</string>
+    <string name="student_count">និស្សិត %1$d នាក់</string>
+    <string name="something_went_wrong">មានបញ្ហាកើតឡើង</string>
+    <string name="delete_student_title">លុបនិស្សិត?</string>
+    <string name="confirm_delete_student">តើអ្នកប្រាកដថាចង់លុប %1$s មែនទេ?</string>
+    <string name="delete">លុប</string>
+    <string name="cancel">បោះបង់</string>
+    <string name="email">អ៊ីមែល</string>
+    <string name="phone">ទូរស័ព្ទ</string>
+    <string name="edit">កែប្រែ</string>
+    <string name="no_matching_students">រកមិនឃើញនិស្សិតដែលត្រូវគ្នាទេ</string>
+    <string name="no_students_yet">មិនទាន់មាននិស្សិតទេ</string>
+    <string name="try_different_keyword">សូមសាកល្បងស្វែងរកដោយប្រើពាក្យគន្លឹះផ្សេង។</string>
+    <string name="add_first_student">បន្ថែមនិស្សិតដំបូងរបស់អ្នកដើម្បីចាប់ផ្តើម។</string>
+
+    <!-- Courses -->
+    <string name="add_course">បន្ថែមវគ្គសិក្សា</string>
+    <string name="course_management">ការគ្រប់គ្រងវគ្គសិក្សា</string>
+    <string name="course_management_description">គ្រប់គ្រងវគ្គសិក្សា និងកម្មវិធីសិក្សា។</string>
+    <string name="total_courses_label">ចំនួនវគ្គសិក្សាសរុប</string>
+    <string name="available_learning_programs">កម្មវិធីសិក្សាដែលមាន</string>
+    <string name="search_courses_hint">ស្វែងរកវគ្គសិក្សា...</string>
+    <string name="search_courses">ស្វែងរកវគ្គសិក្សា</string>
+    <string name="course_list">បញ្ជីវគ្គសិក្សា</string>
+    <string name="course_count">វគ្គសិក្សា </string>
+    <string name="delete_course_title">លុបវគ្គសិក្សា?</string>
+    <string name="confirm_delete_course">តើអ្នកប្រាកដថាចង់លុប %1$s មែនទេ?</string>
+    <string name="duration">រយៈពេល</string>
+    <string name="description_label">ការពិពណ៌នា</string>
+    <string name="no_matching_courses">រកមិនឃើញវគ្គសិក្សាដែលត្រូវគ្នាទេ</string>
+    <string name="no_courses_yet">មិនទាន់មានវគ្គសិក្សាទេ</string>
+    <string name="add_first_course">បន្ថែមវគ្គសិក្សាដំបូងរបស់អ្នកដើម្បីចាប់ផ្តើម។</string>
+
+    <!-- Settings -->
+    <string name="dark_mode">របៀបងងឹត</string>
+    <string name="notifications">ការជូនដំណឹង</string>
+    <string name="language">ភាសា</string>
+    <string name="english">អង់គ្លេស</string>
+    <string name="khmer">ខ្មែរ</string>
+
+    <!-- Authentication -->
+    <string name="login">ចូលគណនី</string>
+    <string name="register">ចុះឈ្មោះ</string>
+
+</resources>

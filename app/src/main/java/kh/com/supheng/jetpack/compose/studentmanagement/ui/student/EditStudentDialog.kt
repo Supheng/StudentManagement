@@ -1,6 +1,7 @@
 
 package kh.com.supheng.jetpack.compose.studentmanagement.ui.student
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.OutlinedTextField
@@ -11,7 +12,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import kh.com.supheng.jetpack.compose.studentmanagement.data.Model.Student
+import androidx.compose.ui.unit.dp
+import kh.com.supheng.jetpack.compose.studentmanagement.data.model.Student
+
 
 @Composable
 fun EditStudentDialog(
@@ -19,6 +22,7 @@ fun EditStudentDialog(
     onDismiss: () -> Unit,
     onSave: (Student) -> Unit
 ) {
+    // Start with existing student information
     var name by remember(student.id) {
         mutableStateOf(student.name)
     }
@@ -35,6 +39,12 @@ fun EditStudentDialog(
         mutableStateOf(student.course)
     }
 
+    // Error states
+    var nameError by remember { mutableStateOf(false) }
+    var emailError by remember { mutableStateOf(false) }
+    var phoneError by remember { mutableStateOf(false) }
+    var courseError by remember { mutableStateOf(false) }
+
     AlertDialog(
         onDismissRequest = onDismiss,
 
@@ -43,29 +53,63 @@ fun EditStudentDialog(
         },
 
         text = {
-            Column {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
                 OutlinedTextField(
                     value = name,
-                    onValueChange = { name = it },
-                    label = { Text("Name") }
+                    onValueChange = {
+                        name = it
+                        nameError = false
+                    },
+                    label = { Text("Name") },
+                    isError = nameError,
+                    singleLine = true,
+                    supportingText = {
+                        if (nameError) Text("Name cannot be empty")
+                    }
                 )
 
                 OutlinedTextField(
                     value = email,
-                    onValueChange = { email = it },
-                    label = { Text("Email") }
+                    onValueChange = {
+                        email = it
+                        emailError = false
+                    },
+                    label = { Text("Email") },
+                    isError = emailError,
+                    singleLine = true,
+                    supportingText = {
+                        if (emailError) Text("Enter a valid email")
+                    }
                 )
 
                 OutlinedTextField(
                     value = phone,
-                    onValueChange = { phone = it },
-                    label = { Text("Phone") }
+                    onValueChange = {
+                        phone = it
+                        phoneError = false
+                    },
+                    label = { Text("Phone") },
+                    isError = phoneError,
+                    singleLine = true,
+                    supportingText = {
+                        if (phoneError) Text("Phone cannot be empty")
+                    }
                 )
 
                 OutlinedTextField(
                     value = course,
-                    onValueChange = { course = it },
-                    label = { Text("Course") }
+                    onValueChange = {
+                        course = it
+                        courseError = false
+                    },
+                    label = { Text("Course") },
+                    isError = courseError,
+                    singleLine = true,
+                    supportingText = {
+                        if (courseError) Text("Course cannot be empty")
+                    }
                 )
             }
         },
@@ -73,17 +117,33 @@ fun EditStudentDialog(
         confirmButton = {
             TextButton(
                 onClick = {
-                    val updatedStudent = student.copy(
-                        name = name,
-                        email = email,
-                        phone = phone,
-                        course = course
-                    )
+                    nameError = name.isBlank()
 
-                    onSave(updatedStudent)
+                    emailError = !android.util.Patterns.EMAIL_ADDRESS
+                        .matcher(email.trim())
+                        .matches()
+
+                    phoneError = phone.isBlank()
+                    courseError = course.isBlank()
+
+                    if (
+                        !nameError &&
+                        !emailError &&
+                        !phoneError &&
+                        !courseError
+                    ) {
+                        onSave(
+                            student.copy(
+                                name = name.trim(),
+                                email = email.trim(),
+                                phone = phone.trim(),
+                                course = course.trim()
+                            )
+                        )
+                    }
                 }
             ) {
-                Text("Save")
+                Text("Update")
             }
         },
 
@@ -94,3 +154,4 @@ fun EditStudentDialog(
         }
     )
 }
+

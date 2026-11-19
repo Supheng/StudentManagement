@@ -4,7 +4,7 @@ package kh.com.supheng.jetpack.compose.studentmanagement.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kh.com.supheng.jetpack.compose.studentmanagement.data.Model.Student
+import kh.com.supheng.jetpack.compose.studentmanagement.data.model.Student
 import kh.com.supheng.jetpack.compose.studentmanagement.data.repository.StudentRepository
 import kh.com.supheng.jetpack.compose.studentmanagement.ui.student.StudentUiState
 import kotlinx.coroutines.CancellationException
@@ -32,7 +32,8 @@ class StudentViewModel @Inject constructor(
             _uiState.update {
                 it.copy(
                     isLoading = true,
-                    errorMessage = null
+                    errorMessage = null,
+                    successMessage = null
                 )
             }
 
@@ -61,19 +62,93 @@ class StudentViewModel @Inject constructor(
 
     fun addStudent(student: Student) {
         viewModelScope.launch {
-            repository.insertStudent(student)
+            _uiState.update {
+                it.copy(
+                    isLoading = true,
+                    errorMessage = null,
+                    successMessage = null
+                )
+            }
+            try {
+                repository.insertStudent(student)
+
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                        successMessage = "Student added successfully"
+                    )
+                }
+            }catch (e : CancellationException){
+                throw e
+            }catch (e : Exception){
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                        errorMessage = e.message ?: "Failed to add student"
+                    )
+                }
+            }
         }
     }
 
     fun deleteStudent(student: Student) {
         viewModelScope.launch {
-            repository.deleteStudent(student)
+            _uiState.update {
+                it.copy(
+                    isLoading = true,
+                    errorMessage = null,
+                    successMessage = null
+                )
+            }
+            try {
+                repository.deleteStudent(student)
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                        successMessage = "Delete successfully"
+                    )
+                }
+            }catch (e : CancellationException){
+                throw e
+            }catch (e : Exception){
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                        errorMessage = e.message ?: "Deleted is fail"
+                    )
+                }
+            }
         }
     }
 
     fun updateStudent(student: Student) {
         viewModelScope.launch {
-            repository.updateStudent(student)
+            _uiState.update {
+                it.copy(
+                    isLoading = true,
+                    errorMessage = null,
+                    successMessage = null,
+                )
+            }
+            try {
+                repository.updateStudent(student)
+
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                        successMessage = "student updated successfully"
+                    )
+                }
+            }catch (e : CancellationException){
+                throw e
+            }catch (e : Exception){
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                        errorMessage = e.message ?: "Failed to Update student"
+                    )
+                }
+            }
         }
     }
 

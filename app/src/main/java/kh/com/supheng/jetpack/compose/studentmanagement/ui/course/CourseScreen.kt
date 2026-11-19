@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -23,7 +24,6 @@ import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -41,9 +41,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import kh.com.supheng.jetpack.compose.studentmanagement.R
 import kh.com.supheng.jetpack.compose.studentmanagement.data.local.CourseEntity
 import kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.CourseViewModel
 
@@ -88,12 +90,12 @@ fun CourseScreen(
                 icon = {
                     Icon(
                         imageVector = Icons.Default.Add,
-                        contentDescription = "Add Course"
+                        contentDescription = stringResource(R.string.add_course)
                     )
                 },
                 text = {
                     Text(
-                        text = "Add Course",
+                        text = stringResource(R.string.add_course),
                         fontWeight = FontWeight.Bold
                     )
                 }
@@ -112,7 +114,7 @@ fun CourseScreen(
 
             // Header
             Text(
-                text = "Course Management",
+                text = stringResource(R.string.course_management),
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onBackground
@@ -121,7 +123,7 @@ fun CourseScreen(
             Spacer(modifier = Modifier.height(6.dp))
 
             Text(
-                text = "Manage courses and learning programs.",
+                text = stringResource(R.string.course_management_description),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -143,7 +145,7 @@ fun CourseScreen(
                     modifier = Modifier.padding(22.dp)
                 ) {
                     Text(
-                        text = "TOTAL COURSES",
+                        text = stringResource(R.string.total_courses_label),
                         style = MaterialTheme.typography.labelLarge,
                         color = MaterialTheme.colorScheme.onPrimary.copy(
                             alpha = 0.8f
@@ -161,7 +163,7 @@ fun CourseScreen(
                     )
 
                     Text(
-                        text = "Available learning programs",
+                        text = stringResource(R.string.available_learning_programs),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onPrimary.copy(
                             alpha = 0.8f
@@ -180,12 +182,12 @@ fun CourseScreen(
                 },
                 modifier = Modifier.fillMaxWidth(),
                 placeholder = {
-                    Text("Search courses...")
+                    Text(stringResource(R.string.search_courses_hint))
                 },
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Default.Search,
-                        contentDescription = "Search courses"
+                        contentDescription = stringResource(R.string.search_courses)
                     )
                 },
                 shape = RoundedCornerShape(16.dp),
@@ -201,13 +203,16 @@ fun CourseScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Course List",
+                    text = stringResource(R.string.course_list),
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold
                 )
 
                 Text(
-                    text = "${filteredCourses.size} courses",
+                    text = stringResource(
+                        R.string.course_count,
+                        filteredCourses.size
+                    ),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -226,7 +231,7 @@ fun CourseScreen(
 
                 LazyColumn(
                     verticalArrangement = Arrangement.spacedBy(12.dp),
-                    contentPadding = androidx.compose.foundation.layout.PaddingValues(
+                    contentPadding = PaddingValues(
                         bottom = 100.dp
                     )
                 ) {
@@ -256,7 +261,6 @@ fun CourseScreen(
                     showAddDialog = false
                 },
                 onSave = { name, description, duration ->
-
                     val course = CourseEntity(
                         name = name,
                         description = description,
@@ -290,11 +294,14 @@ fun CourseScreen(
                     courseToDelete = null
                 },
                 title = {
-                    Text("Delete Course?")
+                    Text(stringResource(R.string.delete_course_title))
                 },
                 text = {
                     Text(
-                        "Are you sure you want to delete ${courseToDelete?.name}?"
+                        stringResource(
+                            R.string.confirm_delete_course,
+                            courseToDelete?.name.orEmpty()
+                        )
                     )
                 },
                 confirmButton = {
@@ -307,7 +314,7 @@ fun CourseScreen(
                         }
                     ) {
                         Text(
-                            "Delete",
+                            text = stringResource(R.string.delete),
                             color = MaterialTheme.colorScheme.error
                         )
                     }
@@ -318,7 +325,7 @@ fun CourseScreen(
                             courseToDelete = null
                         }
                     ) {
-                        Text("Cancel")
+                        Text(stringResource(R.string.cancel))
                     }
                 }
             )
@@ -346,11 +353,9 @@ fun CourseCard(
         Column(
             modifier = Modifier.padding(16.dp)
         ) {
-
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
-
                 // Course initial
                 Surface(
                     modifier = Modifier.size(52.dp),
@@ -385,7 +390,7 @@ fun CourseCard(
                     ) {
                         Icon(
                             imageVector = Icons.Default.Schedule,
-                            contentDescription = "Duration",
+                            contentDescription = stringResource(R.string.duration),
                             modifier = Modifier.size(16.dp),
                             tint = MaterialTheme.colorScheme.primary
                         )
@@ -404,7 +409,7 @@ fun CourseCard(
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = "DESCRIPTION",
+                text = stringResource(R.string.description_label),
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontWeight = FontWeight.SemiBold
@@ -429,14 +434,14 @@ fun CourseCard(
                 TextButton(
                     onClick = onEdit
                 ) {
-                    Text("Edit")
+                    Text(stringResource(R.string.edit))
                 }
 
                 TextButton(
                     onClick = onDelete
                 ) {
                     Text(
-                        "Delete",
+                        text = stringResource(R.string.delete),
                         color = MaterialTheme.colorScheme.error
                     )
                 }
@@ -456,12 +461,11 @@ fun EmptyCourseState(
             .padding(vertical = 40.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
         Text(
             text = if (isSearching) {
-                "No matching courses"
+                stringResource(R.string.no_matching_courses)
             } else {
-                "No courses yet"
+                stringResource(R.string.no_courses_yet)
             },
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold
@@ -471,9 +475,9 @@ fun EmptyCourseState(
 
         Text(
             text = if (isSearching) {
-                "Try searching with a different keyword."
+                stringResource(R.string.try_different_keyword)
             } else {
-                "Add your first course to get started."
+                stringResource(R.string.add_first_course)
             },
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant

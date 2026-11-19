@@ -6,5 +6,6 @@ data class CourseUiState(
     val courses: List<CourseEntity> = emptyList(),
     val isLoading: Boolean = false,
     val errorMessage: String? = null,
+    val successMessage : String? = null,
     val searchQuery: String = ""
 )

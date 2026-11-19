@@ -3,6 +3,8 @@ package kh.com.supheng.jetpack.compose.studentmanagement;
 import android.app.Activity;
 import android.app.Service;
 import android.view.View;
+import androidx.datastore.core.DataStore;
+import androidx.datastore.preferences.core.Preferences;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
@@ -34,19 +36,36 @@ import javax.annotation.processing.Generated;
 import kh.com.supheng.jetpack.compose.studentmanagement.data.local.CourseDao;
 import kh.com.supheng.jetpack.compose.studentmanagement.data.local.StudentDao;
 import kh.com.supheng.jetpack.compose.studentmanagement.data.local.StudentDatabase;
+import kh.com.supheng.jetpack.compose.studentmanagement.data.local.UserDao;
+import kh.com.supheng.jetpack.compose.studentmanagement.data.repository.AuthRepository;
 import kh.com.supheng.jetpack.compose.studentmanagement.data.repository.CourseRepository;
+import kh.com.supheng.jetpack.compose.studentmanagement.data.repository.SettingsRepository;
 import kh.com.supheng.jetpack.compose.studentmanagement.data.repository.StudentRepository;
 import kh.com.supheng.jetpack.compose.studentmanagement.di.AppModule_ProvideCourseDaoFactory;
 import kh.com.supheng.jetpack.compose.studentmanagement.di.AppModule_ProvideStudentDaoFactory;
 import kh.com.supheng.jetpack.compose.studentmanagement.di.AppModule_ProvideStudentDatabaseFactory;
+import kh.com.supheng.jetpack.compose.studentmanagement.di.AppModule_ProvideUserDaoFactory;
+import kh.com.supheng.jetpack.compose.studentmanagement.di.DataStoreModule_ProvideDataStoreFactory;
+import kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.AuthViewModel;
+import kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.AuthViewModel_HiltModules;
+import kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.AuthViewModel_HiltModules_BindsModule_Binds_LazyMapKey;
+import kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.AuthViewModel_HiltModules_KeyModule_Provide_LazyMapKey;
 import kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.CourseViewModel;
 import kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.CourseViewModel_HiltModules;
 import kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.CourseViewModel_HiltModules_BindsModule_Binds_LazyMapKey;
 import kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.CourseViewModel_HiltModules_KeyModule_Provide_LazyMapKey;
+import kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.SettingsViewModel;
+import kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.SettingsViewModel_HiltModules;
+import kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.SettingsViewModel_HiltModules_BindsModule_Binds_LazyMapKey;
+import kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.SettingsViewModel_HiltModules_KeyModule_Provide_LazyMapKey;
 import kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.StudentViewModel;
 import kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.StudentViewModel_HiltModules;
 import kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.StudentViewModel_HiltModules_BindsModule_Binds_LazyMapKey;
 import kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.StudentViewModel_HiltModules_KeyModule_Provide_LazyMapKey;
+import kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.ThemeViewModel;
+import kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.ThemeViewModel_HiltModules;
+import kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.ThemeViewModel_HiltModules_BindsModule_Binds_LazyMapKey;
+import kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.ThemeViewModel_HiltModules_KeyModule_Provide_LazyMapKey;
 
 @DaggerGenerated
 @Generated(
@@ -371,9 +390,12 @@ public final class DaggerStudentManagementApp_HiltComponents_SingletonC {
     }
 
     Map keySetMapOfClassOfObjectAndBooleanBuilder() {
-      MapBuilder mapBuilder = MapBuilder.<String, Boolean>newMapBuilder(2);
+      MapBuilder mapBuilder = MapBuilder.<String, Boolean>newMapBuilder(5);
+      mapBuilder.put(AuthViewModel_HiltModules_KeyModule_Provide_LazyMapKey.lazyClassKeyName, AuthViewModel_HiltModules.KeyModule.provide());
       mapBuilder.put(CourseViewModel_HiltModules_KeyModule_Provide_LazyMapKey.lazyClassKeyName, CourseViewModel_HiltModules.KeyModule.provide());
+      mapBuilder.put(SettingsViewModel_HiltModules_KeyModule_Provide_LazyMapKey.lazyClassKeyName, SettingsViewModel_HiltModules.KeyModule.provide());
       mapBuilder.put(StudentViewModel_HiltModules_KeyModule_Provide_LazyMapKey.lazyClassKeyName, StudentViewModel_HiltModules.KeyModule.provide());
+      mapBuilder.put(ThemeViewModel_HiltModules_KeyModule_Provide_LazyMapKey.lazyClassKeyName, ThemeViewModel_HiltModules.KeyModule.provide());
       return mapBuilder.build();
     }
 
@@ -414,9 +436,15 @@ public final class DaggerStudentManagementApp_HiltComponents_SingletonC {
 
     private final ViewModelCImpl viewModelCImpl = this;
 
+    Provider<AuthViewModel> authViewModelProvider;
+
     Provider<CourseViewModel> courseViewModelProvider;
 
+    Provider<SettingsViewModel> settingsViewModelProvider;
+
     Provider<StudentViewModel> studentViewModelProvider;
+
+    Provider<ThemeViewModel> themeViewModelProvider;
 
     ViewModelCImpl(SingletonCImpl singletonCImpl, ActivityRetainedCImpl activityRetainedCImpl,
         SavedStateHandle savedStateHandleParam, ViewModelLifecycle viewModelLifecycleParam) {
@@ -427,18 +455,28 @@ public final class DaggerStudentManagementApp_HiltComponents_SingletonC {
 
     }
 
+    SettingsRepository settingsRepository() {
+      return new SettingsRepository(singletonCImpl.provideDataStoreProvider.get());
+    }
+
     Map hiltViewModelMapMapOfClassOfObjectAndProviderOfViewModelBuilder() {
-      MapBuilder mapBuilder = MapBuilder.<String, javax.inject.Provider<ViewModel>>newMapBuilder(2);
+      MapBuilder mapBuilder = MapBuilder.<String, javax.inject.Provider<ViewModel>>newMapBuilder(5);
+      mapBuilder.put(AuthViewModel_HiltModules_BindsModule_Binds_LazyMapKey.lazyClassKeyName, ((Provider) (authViewModelProvider)));
       mapBuilder.put(CourseViewModel_HiltModules_BindsModule_Binds_LazyMapKey.lazyClassKeyName, ((Provider) (courseViewModelProvider)));
+      mapBuilder.put(SettingsViewModel_HiltModules_BindsModule_Binds_LazyMapKey.lazyClassKeyName, ((Provider) (settingsViewModelProvider)));
       mapBuilder.put(StudentViewModel_HiltModules_BindsModule_Binds_LazyMapKey.lazyClassKeyName, ((Provider) (studentViewModelProvider)));
+      mapBuilder.put(ThemeViewModel_HiltModules_BindsModule_Binds_LazyMapKey.lazyClassKeyName, ((Provider) (themeViewModelProvider)));
       return mapBuilder.build();
     }
 
     @SuppressWarnings("unchecked")
     private void initialize(final SavedStateHandle savedStateHandleParam,
         final ViewModelLifecycle viewModelLifecycleParam) {
-      this.courseViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 0);
-      this.studentViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 1);
+      this.authViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 0);
+      this.courseViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 1);
+      this.settingsViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 2);
+      this.studentViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 3);
+      this.themeViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 4);
     }
 
     @Override
@@ -472,11 +510,20 @@ public final class DaggerStudentManagementApp_HiltComponents_SingletonC {
       @SuppressWarnings("unchecked")
       public T get() {
         switch (id) {
-          case 0: // kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.CourseViewModel
+          case 0: // kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.AuthViewModel
+          return (T) new AuthViewModel(singletonCImpl.authRepositoryProvider.get());
+
+          case 1: // kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.CourseViewModel
           return (T) new CourseViewModel(singletonCImpl.courseRepositoryProvider.get());
 
-          case 1: // kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.StudentViewModel
+          case 2: // kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.SettingsViewModel
+          return (T) new SettingsViewModel(viewModelCImpl.settingsRepository());
+
+          case 3: // kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.StudentViewModel
           return (T) new StudentViewModel(singletonCImpl.studentRepositoryProvider.get());
+
+          case 4: // kh.com.supheng.jetpack.compose.studentmanagement.viewmodel.ThemeViewModel
+          return (T) new ThemeViewModel(viewModelCImpl.settingsRepository());
 
           default: throw new AssertionError(id);
         }
@@ -560,7 +607,11 @@ public final class DaggerStudentManagementApp_HiltComponents_SingletonC {
 
     Provider<StudentDatabase> provideStudentDatabaseProvider;
 
+    Provider<AuthRepository> authRepositoryProvider;
+
     Provider<CourseRepository> courseRepositoryProvider;
+
+    Provider<DataStore<Preferences>> provideDataStoreProvider;
 
     Provider<StudentRepository> studentRepositoryProvider;
 
@@ -568,6 +619,10 @@ public final class DaggerStudentManagementApp_HiltComponents_SingletonC {
       this.applicationContextModule = applicationContextModuleParam;
       initialize(applicationContextModuleParam);
 
+    }
+
+    UserDao userDao() {
+      return AppModule_ProvideUserDaoFactory.provideUserDao(provideStudentDatabaseProvider.get());
     }
 
     CourseDao courseDao() {
@@ -581,8 +636,10 @@ public final class DaggerStudentManagementApp_HiltComponents_SingletonC {
     @SuppressWarnings("unchecked")
     private void initialize(final ApplicationContextModule applicationContextModuleParam) {
       this.provideStudentDatabaseProvider = DoubleCheck.provider(new SwitchingProvider<StudentDatabase>(singletonCImpl, 1));
-      this.courseRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<CourseRepository>(singletonCImpl, 0));
-      this.studentRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<StudentRepository>(singletonCImpl, 2));
+      this.authRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<AuthRepository>(singletonCImpl, 0));
+      this.courseRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<CourseRepository>(singletonCImpl, 2));
+      this.provideDataStoreProvider = DoubleCheck.provider(new SwitchingProvider<DataStore<Preferences>>(singletonCImpl, 3));
+      this.studentRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<StudentRepository>(singletonCImpl, 4));
     }
 
     @Override
@@ -618,13 +675,19 @@ public final class DaggerStudentManagementApp_HiltComponents_SingletonC {
       @SuppressWarnings("unchecked")
       public T get() {
         switch (id) {
-          case 0: // kh.com.supheng.jetpack.compose.studentmanagement.data.repository.CourseRepository
-          return (T) new CourseRepository(singletonCImpl.courseDao());
+          case 0: // kh.com.supheng.jetpack.compose.studentmanagement.data.repository.AuthRepository
+          return (T) new AuthRepository(singletonCImpl.userDao());
 
           case 1: // kh.com.supheng.jetpack.compose.studentmanagement.data.local.StudentDatabase
           return (T) AppModule_ProvideStudentDatabaseFactory.provideStudentDatabase(ApplicationContextModule_ProvideContextFactory.provideContext(singletonCImpl.applicationContextModule));
 
-          case 2: // kh.com.supheng.jetpack.compose.studentmanagement.data.repository.StudentRepository
+          case 2: // kh.com.supheng.jetpack.compose.studentmanagement.data.repository.CourseRepository
+          return (T) new CourseRepository(singletonCImpl.courseDao());
+
+          case 3: // androidx.datastore.core.DataStore<androidx.datastore.preferences.core.Preferences>
+          return (T) DataStoreModule_ProvideDataStoreFactory.provideDataStore(ApplicationContextModule_ProvideContextFactory.provideContext(singletonCImpl.applicationContextModule));
+
+          case 4: // kh.com.supheng.jetpack.compose.studentmanagement.data.repository.StudentRepository
           return (T) new StudentRepository(singletonCImpl.studentDao());
 
           default: throw new AssertionError(id);

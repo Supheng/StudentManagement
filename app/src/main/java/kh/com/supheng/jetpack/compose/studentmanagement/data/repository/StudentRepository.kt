@@ -1,7 +1,7 @@
 
 package kh.com.supheng.jetpack.compose.studentmanagement.data.repository
 
-import kh.com.supheng.jetpack.compose.studentmanagement.data.Model.Student
+import kh.com.supheng.jetpack.compose.studentmanagement.data.model.Student
 import kh.com.supheng.jetpack.compose.studentmanagement.data.local.StudentDao
 import kh.com.supheng.jetpack.compose.studentmanagement.data.mapper.toStudent
 import kh.com.supheng.jetpack.compose.studentmanagement.data.mapper.toStudentEntity

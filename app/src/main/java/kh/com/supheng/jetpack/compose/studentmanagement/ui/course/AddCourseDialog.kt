@@ -1,12 +1,16 @@
 
 package kh.com.supheng.jetpack.compose.studentmanagement.ui.course
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun AddCourseDialog(
@@ -27,15 +31,19 @@ fun AddCourseDialog(
             Text("Add Course")
         },
         text = {
-            Column {
+            Column (
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ){
                 OutlinedTextField(
                     value = name,
                     onValueChange = {
                         name = it
                         nameError = false
                     },
+                    modifier = Modifier.fillMaxWidth(),
                     label = { Text("Course Name") },
                     isError = nameError,
+                    singleLine = true,
                     supportingText = {
                         if (nameError) {
                             Text("Course name cannot be empty")
@@ -49,8 +57,10 @@ fun AddCourseDialog(
                         description = it
                         descriptionError = false
                     },
+                    modifier = Modifier.fillMaxWidth(),
                     label = { Text("Description") },
                     isError = descriptionError,
+                    singleLine = true,
                     supportingText = {
                         if (descriptionError) {
                             Text("Description cannot be empty")
@@ -64,8 +74,10 @@ fun AddCourseDialog(
                         duration = it
                         durationError = false
                     },
+                    modifier = Modifier.fillMaxWidth(),
                     label = { Text("Duration") },
                     isError = durationError,
+                    singleLine = true,
                     supportingText = {
                         if (durationError) {
                             Text("Duration cannot be empty")
